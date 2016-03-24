@@ -7,18 +7,26 @@ var httpHelper = require('./http-helpers');
 exports.handleRequest = function (req, res) {
   //console.log('below this line');
   console.log(__dirname);
-  if (req.method === 'GET') {
-    console.log('it is a get');
-    var file = fs.readFile(__dirname + '/public/index.html', 'utf-8', function(err, data) {
-      //console.log(data);
-      
-      res.writeHead(200, httpHelper.headers);
-      res.end(data);
+  var file;
+  
+  if (req.method === 'GET') {    
+    if (req.url === '/') {
+      file = fs.readFile(__dirname + '/public/index.html', 'utf-8', function(err, data) {
+        res.writeHead(200, httpHelper.headers);
+        res.end(data);
+      });   
+    } else if(req.url === "/www.google.com") {
+      file = fs.readFile(archive.paths.archivedSites + req.url, 'utf-8', function(err, data) {
+        res.writeHead(200, httpHelper.headers);
+        res.end(data);
+      });
 
-      // need writeHead
-      //res thing 
-      // status code
-    });
+    } else {
+      res.writeHead(404, httpHelper.headers);
+      res.end();
+    }
+    
   }
+
   
 };

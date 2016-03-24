@@ -35,6 +35,11 @@ exports.addUrlToList = function() {
 };
 
 exports.isUrlArchived = function() {
+  // if it is archived then return content
+  
+  // else put it in and return content
+
+  
 };
 
 exports.downloadUrls = function() {
