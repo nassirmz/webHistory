@@ -31,23 +31,61 @@ exports.readListOfUrls = function(callback) {
     if(err) {
       console.log("error");
     } else {
-
-      //urls.push(data.split("\n"));
-      callback(data.split("\n"));
+      // data.split('\n') is an array
+      // the callback takes in an array
+      return callback(data.split("\n"));
     }
     
   });
 };
 
-exports.isUrlInList = function() {
-};
-
-exports.addUrlToList = function() {
-};
-
-exports.isUrlArchived = function() {
-  // if it is archived then return content
+exports.isUrlInList = function(url, callback) {
+  // read file
+  // make soemthing = data 
   
+
+  exports.readListOfUrls(function(urlsArray) {
+    // urls is an array
+    console.log(urlsArray);
+    if(urlsArray.indexOf(url) > -1) {
+      return callback(true);
+      //urlsArray.push(url);
+    } else {
+      return callback(false);
+    }
+  });
+  
+};
+
+exports.addUrlToList = function(url, callback) {
+
+  fs.readFile(exports.paths.list, 'utf-8', function(err, data) {
+    if(err) {
+      console.log("error");
+    } else {
+      data.split("\n").push(url);
+      return callback(data.split("\n"));
+    }   
+  });
+
+};
+
+exports.isUrlArchived = function(url, callback) {
+  // if it is archived then return content
+  console.log('line 75');
+  fs.readdir(exports.paths.archivedSites, function(err, data) {
+    if(err) {
+      console.log(err);
+    } else {
+      if(data.indexOf(url) > -1) {
+        callback(true);
+      } else {
+        callback(false);
+      }
+      //var urls = data.split("\n");
+
+    }
+  });
   // else put it in and return content
 
   
