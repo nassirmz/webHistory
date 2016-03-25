@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var request = require('request');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -86,10 +87,24 @@ exports.isUrlArchived = function(url, callback) {
 
     }
   });
-  // else put it in and return content
 
-  
 };
 
-exports.downloadUrls = function() {
+exports.downloadUrls = function(urls) {
+  console.log('somethign');
+  console.log(urls);
+  _.each(urls, function(url) {
+    //url www.amazon.com
+    // https://amazon.com
+    request('https://' + url.slice(4), function(err, response, body) {
+      if(err) {
+        console.log(err);
+      } else {
+        console.log(body);
+        fs.writeFile(exports.paths.archivedSites + "/" + url, body, function(err, data) {
+           console.log(data);
+        });
+      }
+    });
+  });
 };
