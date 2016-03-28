@@ -101,7 +101,7 @@ exports.downloadUrls = function(urls) {
         console.log(err);
       } else {
         console.log(body);
-        fs.writeFile(exports.paths.archivedSites + "/" + url, body, function(err, data) {
+        fs.writeFile(exports.paths.archivedSites + "/" + url,  body, function(err, data) {
            console.log(data);
         });
       }

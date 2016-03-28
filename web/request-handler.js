@@ -43,6 +43,9 @@ exports.handleRequest = function (req, res) {
           console.log('it is saved');
         }
       });
+      ///js jquery.js app.js underscore.js
+      //chatterbox/js/app.js
+      
       fs.readFile(archive.paths.list, 'utf-8', function(err, data) {
         res.writeHead(302, httpHelper.headers);
         res.end(data);
